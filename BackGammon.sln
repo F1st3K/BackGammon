@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BackGammon", "BackGammon.csproj", "{E8F36CF3-6253-4DC0-9046-B82F099C79AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8F36CF3-6253-4DC0-9046-B82F099C79AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F36CF3-6253-4DC0-9046-B82F099C79AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F36CF3-6253-4DC0-9046-B82F099C79AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F36CF3-6253-4DC0-9046-B82F099C79AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DCC4A28B-FDA1-4914-8D30-76F5C461CC1F}
+	EndGlobalSection
+EndGlobal
