@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "e8f36cf3-6253-4dc0-9046-b82f099c79ae": {
+      "ProjectGuid": "e8f36cf3-6253-4dc0-9046-b82f099c79ae",
+      "DisplayName": "BackGammon",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

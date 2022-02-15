@@ -1,6 +1,5 @@
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.csproj.AssemblyReference.cache
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.csproj.SuggestedBindingRedirects.cache
-C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.MainField.resources
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.Properties.Resources.resources
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.csproj.GenerateResource.cache
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.csproj.CoreCompileInputs.cache
