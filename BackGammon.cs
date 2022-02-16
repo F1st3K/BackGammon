@@ -14,11 +14,10 @@ namespace BackGammon
 
     public partial class BackGammon : Form
     {
-
         public BackGammon()
         {
             InitializeComponent();
-            new MainField();
+            MainField Field = new MainField();
         }
     }
 }

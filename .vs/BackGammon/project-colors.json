@@ -5,6 +5,11 @@
       "ProjectGuid": "e8f36cf3-6253-4dc0-9046-b82f099c79ae",
       "DisplayName": "BackGammon",
       "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Прочие файлы",
+      "ColorIndex": -1
     }
   },
   "NextColorIndex": 1

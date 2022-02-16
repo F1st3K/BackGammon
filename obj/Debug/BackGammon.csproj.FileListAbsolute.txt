@@ -8,3 +8,5 @@ C:\programproject\Csharp\repos\BackGammon\bin\Debug\BackGammon.exe
 C:\programproject\Csharp\repos\BackGammon\bin\Debug\BackGammon.pdb
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.exe
 C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.pdb
+C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.BackGammon.resources
+C:\programproject\Csharp\repos\BackGammon\obj\Debug\BackGammon.MainField.resources
