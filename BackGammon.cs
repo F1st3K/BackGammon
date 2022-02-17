@@ -12,12 +12,12 @@ using System.Windows.Forms;
 namespace BackGammon
 {
 
-    public partial class BackGammon : Form
+    public partial class BackGammon 
     {
+        internal MainField Field;
         public BackGammon()
         {
-            InitializeComponent();
-            MainField Field = new MainField();
+            Field = new MainField();
         }
     }
 }

@@ -8,6 +8,7 @@ namespace BackGammon
 {
     internal static class Program
     {
+        
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -16,7 +17,7 @@ namespace BackGammon
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainField());
+            Application.Run((new BackGammon()).Field);
         }
     }
 }

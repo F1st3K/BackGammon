@@ -1,6 +1,6 @@
 ﻿namespace BackGammon
 {
-    partial class BackGammon
+    partial class MainField
     {
         /// <summary>
         /// Required designer variable.

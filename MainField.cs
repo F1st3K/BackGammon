@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace BackGammon
 {
-    internal class MainField:Form
+    partial class MainField:Form
     {
 
         private const int mapSizeX = 12;
@@ -70,13 +70,13 @@ namespace BackGammon
         }
         private string NameButton(Button button, int i, int j)
         {
-            if (i < 10)
+            /*if (i < 10)
                 button.Name += "0";
             button.Name += Convert.ToString(i);
             if (j < 10)
                 button.Name += "0";
-            button.Name += Convert.ToString(j);
-            return button.Name;
+            button.Name += Convert.ToString(j);*/
+            return button.Name = Convert.ToString(i) + ":" + Convert.ToString(j);
         }
         private Image DrowFigure(Button button, int i, int j)
         {
@@ -87,7 +87,7 @@ namespace BackGammon
             return null;
         }
 
-        private void InitializeComponent()
+        /*private void InitializeComponent()
         {
             this.SuspendLayout();
             // 
@@ -98,6 +98,6 @@ namespace BackGammon
             this.Text = "BackGammon";
             this.ResumeLayout(false);
 
-        }
+        }*/
     }
 }

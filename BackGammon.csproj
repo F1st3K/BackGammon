@@ -46,9 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackGammon.cs">
-      <SubType>Form</SubType>
-    </Compile>
+    <Compile Include="BackGammon.cs" />
     <Compile Include="BackGammon.Designer.cs">
       <DependentUpon>BackGammon.cs</DependentUpon>
     </Compile>
