@@ -14,10 +14,12 @@ namespace BackGammon
 
     public partial class BackGammon 
     {
+        internal GameEvents Events;
         internal MainField Field;
         public BackGammon()
         {
-            Field = new MainField();
+            Events = new GameEvents();
+            Field = new MainField(Events);
         }
     }
 }

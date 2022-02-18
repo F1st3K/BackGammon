@@ -33,13 +33,14 @@ namespace BackGammon
         private int paddy = 10;
         private Image whiteFigure = new Bitmap(new Bitmap(@"..\image\w.png"), new Size(cellSizeX - 1, cellSizeY - 1));
         private Image blackFigure = new Bitmap(new Bitmap(@"..\image\b.png"), new Size(cellSizeX - 1, cellSizeY - 1));
-        public MainField()
+        public MainField(GameEvents gameEvents)
         {
-            DrawMap();
+            gameEvents.map = map;
+            DrawMap(gameEvents);
             this.Size = new System.Drawing.Size(710, 710);
             this.Text = "BackGammon";
         }
-        private void DrawMap()
+        private void DrawMap(GameEvents gameEvents)
         {
             //Graphics g = CreateGraphics();
             for (int i = 0; i < mapSizeX; i++)
@@ -55,7 +56,7 @@ namespace BackGammon
                     button.BackColor = Color.White;
                     button.Name = NameButton(button, i, j);
                     button.BackgroundImage = DrowFigure(button, i, j);
-                    //button.Click += new EventHandler(OnPressFigure);
+                    button.Click += new EventHandler(gameEvents.OnPressButton);
                     this.Controls.Add(button);
                 }
             }

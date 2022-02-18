@@ -53,6 +53,7 @@
     <Compile Include="Chip.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GameEvents.cs" />
     <Compile Include="MainField.cs">
       <SubType>Form</SubType>
     </Compile>
