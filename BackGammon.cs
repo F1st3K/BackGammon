@@ -20,6 +20,7 @@ namespace BackGammon
         {
             Events = new GameEvents();
             Field = new MainField(Events);
+            Events.Field = Field;
         }
     }
 }

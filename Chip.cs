@@ -13,7 +13,7 @@ namespace BackGammon
         public int Owner { get; private set; }
         public int CordArrayI;
         public int CordArrayJ;
-        
+        public MainField Field;
         public int NumSteps { get; private set; }
         public Chip(int Owner, int i, int j)
         {
@@ -51,18 +51,19 @@ namespace BackGammon
         }
         private bool StayFlat(int[,] map, int NumDice)
         {
-            int j = 15;
+            int j = 23;
             int maxI = 11;
+            int i = CordArrayI;
             if (Owner == 1)
             {
                 j = 0;
-                CordArrayI = -CordArrayI;
+                i = -CordArrayI;
                 maxI = 0;
 
             }
-            if (CordArrayI + NumDice <= maxI)
+            if (i + NumDice <= maxI)
             {
-                ShowButton(Math.Abs(CordArrayI + NumDice), j);
+                ShowButton(Math.Abs(i + NumDice), j);
                 return true;
             }
             return false;
@@ -71,16 +72,17 @@ namespace BackGammon
         {
             int j = 0;
             int maxI = 11;
+            int i = CordArrayI;
             if (Owner == 1)
             {
-                j = 15;
-                CordArrayI = -CordArrayI;
+                j = 23;
+                i = -CordArrayI;
                 maxI = 0;
 
             }
-            if (CordArrayI + NumDice > maxI)
+            if (i + NumDice > maxI)
             {
-                ShowButton(12 - Math.Abs((CordArrayI + NumDice - 11)), j);
+                ShowButton(12 - Math.Abs((i + NumDice - 11)), j);
                 return true;
             }
             return false;
@@ -89,24 +91,25 @@ namespace BackGammon
         {
             int j = 0;
             int maxI = 0;
+            int i = CordArrayI;
             if (Owner == 1)
             {
-                j = 15;
-                CordArrayI = -CordArrayI;
+                j = 23;
+                i = -CordArrayI;
                 maxI = -11;
 
             }
-            if (CordArrayI - NumDice >= maxI)
+            if (i - NumDice >= maxI)
             {
-                ShowButton(Math.Abs(CordArrayI - NumDice), j);
+                ShowButton(Math.Abs(i - NumDice), j);
                 return true;
             }
             return false;
         }
         private void ShowButton(int i, int j)
         {
-            (Controls[i + ":" + j] as Button).BackColor = Color.Yellow;
-            (Controls[i + ":" + j] as Button).Enabled = true;
+            (Field.Controls[i + ":" + j] as Button).BackColor = Color.Yellow;
+            (Field.Controls[i + ":" + j] as Button).Enabled = true;
         }
     }
 }

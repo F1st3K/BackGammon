@@ -10,16 +10,18 @@ namespace BackGammon
 {
     internal class GameEvents
     {
-        private Button prevButton;
+        private Chip prevButton;
         private int NumDice = 3;
         public int[,] map;
+        public MainField Field;
         public void OnPressButton(object sender, EventArgs e)
         {
             if (sender is Chip)
             {
                 Chip pressedButton = sender as Chip;
                 ShowButton(pressedButton);
-                if (prevButton != null && pressedButton.MayBeSteps(map, NumDice))
+                pressedButton.Field = Field;
+                if (pressedButton.MayBeSteps(map, NumDice) && prevButton != null)
                 {
                     Move(pressedButton);
                 }

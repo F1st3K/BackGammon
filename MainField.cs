@@ -77,7 +77,7 @@ namespace BackGammon
             if (j < 10)
                 button.Name += "0";
             button.Name += Convert.ToString(j);*/
-            return button.Name = Convert.ToString(i) + ":" + Convert.ToString(j);
+            return i + ":" + j;
         }
         private Image DrowFigure(Button button, int i, int j)
         {
