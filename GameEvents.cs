@@ -11,10 +11,11 @@ namespace BackGammon
     internal class GameEvents
     {
         private Chip prevButton;
-        private int NumDice = 3;
+        public int NumDice = 3;
         public int[,] map;
         public MainField Field;
         private bool IsMoving = false;
+        public int CurrentPlayer { get; private set; } = 1;
         public void OnPressButton(object sender, EventArgs e)
         {
             if (sender is Chip)
@@ -31,11 +32,6 @@ namespace BackGammon
             {
                 Button pressedButton = sender as Button;
                 Move(pressedButton, prevButton);
-
-                if (NumDice == 0)
-                {
-                    IsMoving = false;
-                }
             }
         }
         private void Move(Button pressedButton, Chip prevButton)
@@ -57,6 +53,11 @@ namespace BackGammon
             pressedButton.BackColor = Color.Gray;
             if (prevButton != null)
                 prevButton.BackColor = Color.White;
+        }
+        public int SweechPlayer(int player)
+        {
+            return player == 1 ? 2 : 1;
+
         }
     }
 }

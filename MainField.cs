@@ -60,6 +60,13 @@ namespace BackGammon
                     this.Controls.Add(button);
                 }
             }
+            RandomButton randomBtn = new RandomButton(gameEvents);
+            randomBtn.Location = new Point(302, 290);
+            randomBtn.Size = new Size(cellSizeX * 2, cellSizeY * 2);
+            randomBtn.Click += new EventHandler(randomBtn.ClickOn);
+            this.Controls.Add(randomBtn);
+
+
         }
         private Button CheckingChip(int i, int j)
         {
