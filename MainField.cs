@@ -63,7 +63,7 @@ namespace BackGammon
             RandomButton randomBtn = new RandomButton(gameEvents);
             randomBtn.Location = new Point(302, 290);
             randomBtn.Size = new Size(cellSizeX * 2, cellSizeY * 2);
-            randomBtn.Click += new EventHandler(randomBtn.ClickOn);
+            gameEvents.RandBtn = randomBtn;
             this.Controls.Add(randomBtn);
 
 

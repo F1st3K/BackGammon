@@ -21,33 +21,51 @@ namespace BackGammon
             this.CordArrayI = i;
             this.CordArrayJ = j;
         }
-        public bool MayBeSteps(int[,] map, int NumDice)
+        public bool MayBeSteps(int[,] map, int NumDice, int CurrentPlayer)
         {
-            return TopPass(map) && ExistPossibleSteps(map, NumDice);
+            return Owner == CurrentPlayer && TopPass(map) && ExistPossibleSteps(map, NumDice);
         }
         private bool TopPass(int[,] map)
         {
-            if (Owner == 1 && map[CordArrayI, CordArrayJ+1] == 0)
+            /*if (Owner == 1 && map[CordArrayI, CordArrayJ+1] == 0)
                 return true;
             if (Owner == 2 && map[CordArrayI, CordArrayJ - 1] == 0)
+                return true;*/
+            if ((CordArrayJ == 23 && map[CordArrayI, CordArrayJ - 1] == 0) ||
+                (CordArrayJ == 0  && map[CordArrayI, CordArrayJ + 1] == 0) ||
+                (CordArrayJ != 23 && map[CordArrayI, CordArrayJ + 1] == 0) ||
+                (CordArrayJ != 0  && map[CordArrayI, CordArrayJ - 1] == 0))
                 return true;
             return false;
         }
         private bool ExistPossibleSteps(int[,] map, int NumDice)
         {
-            PossibleSteps(map, NumDice);
+            if (NumDice != 0)
+                PossibleSteps(map, NumDice);
             if (NumSteps != 0)
+            {
+                NumSteps = 0;
                 return true;
+            }
             return false;
         }
         private void PossibleSteps(int[,] map, int NumDice)
         {
             if (StayFlat(map, NumDice))
+            {
                 NumSteps++;
+                return;
+            }
             if (RunNextFlat(map, NumDice))
+            {
                 NumSteps++;
+                return;
+            }
             if (StayNextFlat(map, NumDice))
+            {
                 NumSteps++;
+                return;
+            }
         }
         private bool StayFlat(int[,] map, int NumDice)
         {

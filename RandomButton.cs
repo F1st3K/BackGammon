@@ -16,14 +16,9 @@ namespace BackGammon
         }
         private GameEvents Event;
         private Random rnd = new Random();
-        private int RollDicePlayer = 1;
-        public void ClickOn(object sender, EventArgs e)
+        public void ClickOn()
         {
-            if (this.Event.CurrentPlayer == RollDicePlayer)
-            {
-                this.Event.NumDice = rnd.Next(1, 7);
-                RollDicePlayer = this.Event.SweechPlayer(RollDicePlayer);
-            } 
+            this.Event.NumDice = rnd.Next(1, 7);
         }
     }
 }
