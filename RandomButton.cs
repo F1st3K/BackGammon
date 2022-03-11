@@ -18,7 +18,8 @@ namespace BackGammon
         private Random rnd = new Random();
         public void ClickOn()
         {
-            this.Event.NumDice = rnd.Next(1, 7);
+            this.Event.NumDice1 = rnd.Next(1, 7);
+            this.Event.NumDice2 = this.Event.NumDice1;//rnd.Next(1, 7);
         }
     }
 }

@@ -14,6 +14,10 @@ namespace BackGammon
         public int CordArrayI;
         public int CordArrayJ;
         public MainField Field;
+        public Button PossibleStep1;
+        public Button PossibleStep2;
+        public int PossibleDice1 = 0;
+        public int PossibleDice2 = 0;
         public int NumSteps { get; private set; }
         public Chip(int Owner, int i, int j)
         {
@@ -81,7 +85,7 @@ namespace BackGammon
             }
             if (i + NumDice <= maxI)
             {
-                ShowButton(Math.Abs(i + NumDice), j);
+                ShowButton(Math.Abs(i + NumDice), j, NumDice);
                 return true;
             }
             return false;
@@ -100,7 +104,7 @@ namespace BackGammon
             }
             if (i + NumDice > maxI)
             {
-                ShowButton(12 - Math.Abs((i + NumDice - 11)), j);
+                ShowButton(12 - Math.Abs((i + NumDice - 11)), j, NumDice);
                 return true;
             }
             return false;
@@ -119,15 +123,28 @@ namespace BackGammon
             }
             if (i - NumDice >= maxI)
             {
-                ShowButton(Math.Abs(i - NumDice), j);
+                ShowButton(Math.Abs(i - NumDice), j, NumDice);
                 return true;
             }
             return false;
         }
-        private void ShowButton(int i, int j)
+        private void ShowButton(int i, int j, int NumDice)
         {
             (Field.Controls[i + ":" + j] as Button).BackColor = Color.Yellow;
             (Field.Controls[i + ":" + j] as Button).Enabled = true;
+            AddStepPossible((Field.Controls[i + ":" + j] as Button), NumDice);
+        }
+        private void AddStepPossible(Button PosBtn, int NumDice)
+        {
+            if (PossibleStep1 == null)
+            {
+                PossibleStep1 = PosBtn;
+            }
+            else if (PossibleStep2 == null)
+            {
+                PossibleStep2 = PosBtn;
+            }
+
         }
     }
 }

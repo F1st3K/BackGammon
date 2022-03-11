@@ -11,37 +11,65 @@ namespace BackGammon
     internal class GameEvents
     {
         private Chip prevButton;
-        public int NumDice = 3;
+        public int NumDice1 = 0;
+        public int NumDice2 = 0;
         public int[,] map;
         public MainField Field;
         public RandomButton RandBtn;
         private bool IsMoving = false;
-        public int CurrentPlayer { get; private set; } = 1;
+        public int CurrentPlayer { get; private set; } = 2;
+        public GameEvents()
+        {
+            
+        }
         public void OnPressButton(object sender, EventArgs e)
         {
             if (sender is Chip)
             {
                 Chip pressedButton = sender as Chip;
                 ShowButton(pressedButton);
-                if (NumDice == 0)
+                if (NumDice1 == 0 && NumDice2 == 0)
                 {
                     CurrentPlayer = SwitchPlayer(CurrentPlayer);
                 }
                 pressedButton.Field = Field;
-                IsMoving = pressedButton.MayBeSteps(map, NumDice, CurrentPlayer);
+                bool MayStep1 = pressedButton.MayBeSteps(map, NumDice1, CurrentPlayer);
+                bool MayStep2 = pressedButton.MayBeSteps(map, NumDice2, CurrentPlayer);
+                IsMoving = MayStep1 || MayStep2;
                 prevButton = pressedButton;
                 return;
             }
             if (IsMoving && prevButton is Chip)
             {
                 Button pressedButton = sender as Button;
+                ScoreStep(pressedButton, prevButton);
                 Move(pressedButton, prevButton);
                 sender = prevButton;
                 this.OnPressButton(sender, e);
             }
         }
+        private void ScoreStep(Button pressedButton, Chip prevButton)
+        {
+            if (pressedButton.Name == prevButton.PossibleStep1.Name)
+            {
+                if (NumDice1 == 0)
+                    NumDice2 = 0;
+                NumDice1 = 0;
+                prevButton.PossibleStep1 = null;
+                prevButton.PossibleStep2 = null;
+            }
+            else if (pressedButton.Name == prevButton.PossibleStep2.Name)
+            {
+                NumDice2 = 0;
+                prevButton.PossibleStep1 = null;
+                prevButton.PossibleStep2 = null;
+            }
+
+        }
         private void Move(Button pressedButton, Chip prevButton)
         {
+            
+
             string prevName = prevButton.Name;
             prevButton.Name = pressedButton.Name;
             pressedButton.Name = prevName;
@@ -56,7 +84,6 @@ namespace BackGammon
             Point prevLocation = prevButton.Location;
             prevButton.Location = pressedButton.Location;
             pressedButton.Location = prevLocation;
-            NumDice--;
         }
         private void ShowButton(Chip pressedButton)
         {
