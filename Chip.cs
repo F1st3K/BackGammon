@@ -76,16 +76,17 @@ namespace BackGammon
             int j = 23;
             int maxI = 11;
             int i = CordArrayI;
+            int start = 23;
             if (Owner == 1)
             {
+                start = 0;
                 j = 0;
                 i = -CordArrayI;
                 maxI = 0;
-
             }
-            if (i + NumDice <= maxI)
+            if ((j == start || map[Math.Abs(i), start] == Owner) && i + NumDice <= maxI && (map[Math.Abs(i + NumDice), j] == Owner || map[Math.Abs(i + NumDice), j] == 0))
             {
-                ShowButton(Math.Abs(i + NumDice), j, NumDice);
+                ShowButton(Math.Abs(i + NumDice), j, NumDice, map);
                 return true;
             }
             return false;
@@ -95,16 +96,18 @@ namespace BackGammon
             int j = 0;
             int maxI = 11;
             int i = CordArrayI;
+            int start = 23;
             if (Owner == 1)
             {
                 j = 23;
                 i = -CordArrayI;
                 maxI = 0;
+                start = 0;
 
             }
-            if (i + NumDice > maxI)
+            if ((j == start || map[Math.Abs(i), start] == Owner) && i + NumDice > maxI && (map[11 - Math.Abs((i + NumDice - 12)), j] == Owner || map[11 - Math.Abs((i + NumDice - 12)), j] == 0))
             {
-                ShowButton(12 - Math.Abs((i + NumDice - 11)), j, NumDice);
+                ShowButton(11 - Math.Abs((i + NumDice - 12)), j, NumDice, map);
                 return true;
             }
             return false;
@@ -114,25 +117,49 @@ namespace BackGammon
             int j = 0;
             int maxI = 0;
             int i = CordArrayI;
+            int end = 0;
             if (Owner == 1)
             {
                 j = 23;
                 i = -CordArrayI;
                 maxI = -11;
+                end = 23;
 
             }
-            if (i - NumDice >= maxI)
+            if ((j == end || map[Math.Abs(i), end] == Owner) && i - NumDice >= maxI && (map[Math.Abs(i - NumDice), j] == Owner || map[Math.Abs(i - NumDice), j] == 0))
             {
-                ShowButton(Math.Abs(i - NumDice), j, NumDice);
+                ShowButton(Math.Abs(i - NumDice), j, NumDice, map);
                 return true;
             }
             return false;
         }
-        private void ShowButton(int i, int j, int NumDice)
+        private void ShowButton(int i, int j, int NumDice, int [,] map)
         {
+            (i, j) = CheckForChips(i, j, map);
             (Field.Controls[i + ":" + j] as Button).BackColor = Color.Yellow;
             (Field.Controls[i + ":" + j] as Button).Enabled = true;
             AddStepPossible((Field.Controls[i + ":" + j] as Button), NumDice);
+        }
+        private (int, int) CheckForChips(int i, int j, int [,] map)
+        {
+            int coff = 0;
+            if (map[i, j] == Owner)
+            {
+                if (j == 0 || map[i, j - 1] == Owner)
+                {
+                    coff = 1;
+                }
+                else if (j == 23 || map[i, j + 1] == Owner)
+                {
+                    coff = -1;
+                }
+                for (; ;j += coff )
+                {
+                    if (map[i, j] == 0)
+                        break;
+                }
+            }
+            return (i, j);
         }
         private void AddStepPossible(Button PosBtn, int NumDice)
         {

@@ -50,11 +50,14 @@ namespace BackGammon
         }
         private void ScoreStep(Button pressedButton, Chip prevButton)
         {
+            int coff = 1;
+            if (NumDice1 == NumDice2)
+                coff = 2;
             if (pressedButton.Name == prevButton.PossibleStep1.Name)
             {
                 if (NumDice1 == 0)
                     NumDice2 = 0;
-                NumDice1 = 0;
+                NumDice1 = NumDice1*coff - NumDice1;
                 prevButton.PossibleStep1 = null;
                 prevButton.PossibleStep2 = null;
             }

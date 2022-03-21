@@ -11,7 +11,6 @@ namespace BackGammon
 {
     partial class MainField:Form
     {
-
         private const int mapSizeX = 12;
         private const int mapSizeY = 24;
         private const int cellSizeX = 45;
@@ -42,12 +41,11 @@ namespace BackGammon
         }
         private void DrawMap(GameEvents gameEvents)
         {
-            //Graphics g = CreateGraphics();
             for (int i = 0; i < mapSizeX; i++)
             {
                 paddx += 5;
                 if (i == 6)
-                    paddx += cellSizeX * 2;
+                    paddx += cellSizeX;
                 for (int j = 0; j < mapSizeY; j++)
                 {
                     Button button = CheckingChip(i, j);//new Button();
@@ -61,12 +59,15 @@ namespace BackGammon
                 }
             }
             RandomButton randomBtn = new RandomButton(gameEvents);
-            randomBtn.Location = new Point(302, 290);
-            randomBtn.Size = new Size(cellSizeX * 2, cellSizeY * 2);
+            randomBtn.RandLabel1 = new Label();
+            randomBtn.RandLabel2 = new Label();
+            randomBtn.RandLabel1.Location = new Point(302, 290);
+            randomBtn.RandLabel2.Location = new Point(302, 240);
+            randomBtn.RandLabel1.Size = new Size(cellSizeX * 2, cellSizeY * 2);
+            randomBtn.RandLabel2.Size = new Size(cellSizeX * 2, cellSizeY * 2);
             gameEvents.RandBtn = randomBtn;
-            this.Controls.Add(randomBtn);
-
-
+            this.Controls.Add(randomBtn.RandLabel1);
+            this.Controls.Add(randomBtn.RandLabel2);
         }
         private Button CheckingChip(int i, int j)
         {
@@ -78,12 +79,6 @@ namespace BackGammon
         }
         private string NameButton(Button button, int i, int j)
         {
-            /*if (i < 10)
-                button.Name += "0";
-            button.Name += Convert.ToString(i);
-            if (j < 10)
-                button.Name += "0";
-            button.Name += Convert.ToString(j);*/
             return i + ":" + j;
         }
         private Image DrowFigure(Button button, int i, int j)
