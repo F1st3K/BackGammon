@@ -17,6 +17,7 @@ namespace BackGammon
         public MainField Field;
         public RandomButton RandBtn;
         private bool IsMoving = false;
+        private int coff = 1;
         public int CurrentPlayer { get; private set; } = 2;
         public GameEvents()
         {
@@ -50,14 +51,18 @@ namespace BackGammon
         }
         private void ScoreStep(Button pressedButton, Chip prevButton)
         {
-            int coff = 1;
-            if (NumDice1 == NumDice2)
-                coff = 2;
             if (pressedButton.Name == prevButton.PossibleStep1.Name)
             {
                 if (NumDice1 == 0)
-                    NumDice2 = 0;
-                NumDice1 = NumDice1*coff - NumDice1;
+                    if (1 < coff)
+                        coff--;
+                    else
+                        NumDice2 = 0;
+                if (NumDice1 == NumDice2)
+                {
+                    coff = 3;
+                }
+                NumDice1 = 0;
                 prevButton.PossibleStep1 = null;
                 prevButton.PossibleStep2 = null;
             }

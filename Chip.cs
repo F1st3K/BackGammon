@@ -89,6 +89,8 @@ namespace BackGammon
                 ShowButton(Math.Abs(i + NumDice), j, NumDice, map);
                 return true;
             }
+            if (map[Math.Abs(i + NumDice), j] != Owner && map[Math.Abs(i + NumDice), j] != 0)
+                return true;
             return false;
         }
         private bool RunNextFlat(int[,] map, int NumDice)
@@ -110,6 +112,8 @@ namespace BackGammon
                 ShowButton(11 - Math.Abs((i + NumDice - 12)), j, NumDice, map);
                 return true;
             }
+            if (map[11 - Math.Abs((i + NumDice - 12)), j] != Owner || map[11 - Math.Abs((i + NumDice - 12)), j] != 0)
+                return true;
             return false;
         }
         private bool StayNextFlat(int[,] map, int NumDice)
@@ -131,6 +135,8 @@ namespace BackGammon
                 ShowButton(Math.Abs(i - NumDice), j, NumDice, map);
                 return true;
             }
+            if (map[Math.Abs(i - NumDice), j] != Owner || map[Math.Abs(i - NumDice), j] != 0)
+                return true;
             return false;
         }
         private void ShowButton(int i, int j, int NumDice, int [,] map)
@@ -145,7 +151,7 @@ namespace BackGammon
             int coff = 0;
             if (map[i, j] == Owner)
             {
-                if (j == 0 || map[i, j - 1] == Owner)
+                if (j == 0 || (map[i, j - 1] == Owner && j != 23))
                 {
                     coff = 1;
                 }
