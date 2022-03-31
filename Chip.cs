@@ -18,6 +18,7 @@ namespace BackGammon
         public Button PossibleStep2;
         public int PossibleDice1 = 0;
         public int PossibleDice2 = 0;
+        public bool HouseFull;
         public int NumSteps { get; private set; }
         public Chip(int Owner, int i, int j)
         {
@@ -31,10 +32,6 @@ namespace BackGammon
         }
         private bool TopPass(int[,] map)
         {
-            /*if (Owner == 1 && map[CordArrayI, CordArrayJ+1] == 0)
-                return true;
-            if (Owner == 2 && map[CordArrayI, CordArrayJ - 1] == 0)
-                return true;*/
             if ((CordArrayJ == 23 && map[CordArrayI, CordArrayJ - 1] == 0) ||
                 (CordArrayJ == 0  && map[CordArrayI, CordArrayJ + 1] == 0) ||
                 (CordArrayJ != 23 && map[CordArrayI, CordArrayJ + 1] == 0) ||
@@ -56,20 +53,14 @@ namespace BackGammon
         private void PossibleSteps(int[,] map, int NumDice)
         {
             if (StayFlat(map, NumDice))
-            {
-                NumSteps++;
                 return;
-            }
             if (RunNextFlat(map, NumDice))
-            {
-                NumSteps++;
                 return;
-            }
             if (StayNextFlat(map, NumDice))
-            {
-                NumSteps++;
                 return;
-            }
+            if (HouseFull)
+                DropNextFlat(map, NumDice);
+                return;
         }
         private bool StayFlat(int[,] map, int NumDice)
         {
@@ -84,13 +75,15 @@ namespace BackGammon
                 i = -CordArrayI;
                 maxI = 0;
             }
-            if ((j == start || map[Math.Abs(i), start] == Owner) && i + NumDice <= maxI && (map[Math.Abs(i + NumDice), j] == Owner || map[Math.Abs(i + NumDice), j] == 0))
+            if ((CordArrayJ == start || map[Math.Abs(i), start] == Owner) && i + NumDice <= maxI)
             {
-                ShowButton(Math.Abs(i + NumDice), j, NumDice, map);
+                if (map[Math.Abs(i + NumDice), j] == Owner || map[Math.Abs(i + NumDice), j] == 0)
+                {
+                    ShowButton(Math.Abs(i + NumDice), j, NumDice, map);
+                    NumSteps++;
+                }
                 return true;
             }
-            if (map[Math.Abs(i + NumDice), j] != Owner && map[Math.Abs(i + NumDice), j] != 0)
-                return true;
             return false;
         }
         private bool RunNextFlat(int[,] map, int NumDice)
@@ -107,13 +100,15 @@ namespace BackGammon
                 start = 0;
 
             }
-            if ((j == start || map[Math.Abs(i), start] == Owner) && i + NumDice > maxI && (map[11 - Math.Abs((i + NumDice - 12)), j] == Owner || map[11 - Math.Abs((i + NumDice - 12)), j] == 0))
+            if ((j == start || map[Math.Abs(i), start] == Owner) && i + NumDice > maxI)
             {
-                ShowButton(11 - Math.Abs((i + NumDice - 12)), j, NumDice, map);
+                if (map[11 - Math.Abs((i + NumDice - 12)), j] == Owner || map[11 - Math.Abs((i + NumDice - 12)), j] == 0)
+                {
+                    ShowButton(11 - Math.Abs((i + NumDice - 12)), j, NumDice, map);
+                    NumSteps++;
+                }
                 return true;
             }
-            if (map[11 - Math.Abs((i + NumDice - 12)), j] != Owner || map[11 - Math.Abs((i + NumDice - 12)), j] != 0)
-                return true;
             return false;
         }
         private bool StayNextFlat(int[,] map, int NumDice)
@@ -130,14 +125,20 @@ namespace BackGammon
                 end = 23;
 
             }
-            if ((j == end || map[Math.Abs(i), end] == Owner) && i - NumDice >= maxI && (map[Math.Abs(i - NumDice), j] == Owner || map[Math.Abs(i - NumDice), j] == 0))
+            if ((j == end || map[Math.Abs(i), end] == Owner) && i - NumDice >= maxI)
             {
-                ShowButton(Math.Abs(i - NumDice), j, NumDice, map);
+                if (map[Math.Abs(i - NumDice), j] == Owner || map[Math.Abs(i - NumDice), j] == 0)
+                {
+                    ShowButton(Math.Abs(i - NumDice), j, NumDice, map);
+                    NumSteps++;
+                }
                 return true;
             }
-            if (map[Math.Abs(i - NumDice), j] != Owner || map[Math.Abs(i - NumDice), j] != 0)
-                return true;
             return false;
+        }
+        private void DropNextFlat(int[,] map, int NumDice)
+        {
+            
         }
         private void ShowButton(int i, int j, int NumDice, int [,] map)
         {

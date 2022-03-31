@@ -24,19 +24,19 @@ namespace BackGammon
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
-        private int paddx = 0;
-        private int paddy = 10;
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
+        private int paddx = 55;
+        private int paddy = 45;
         private Image whiteFigure = new Bitmap(new Bitmap(@"..\image\w.png"), new Size(cellSizeX - 1, cellSizeY - 1));
         private Image blackFigure = new Bitmap(new Bitmap(@"..\image\b.png"), new Size(cellSizeX - 1, cellSizeY - 1));
         public MainField(GameEvents gameEvents)
         {
             gameEvents.map = map;
             DrawMap(gameEvents);
-            this.Size = new System.Drawing.Size(710, 710);
+            this.Size = new System.Drawing.Size(780, 780);
             this.Text = "BackGammon";
         }
         private void DrawMap(GameEvents gameEvents)
@@ -45,7 +45,7 @@ namespace BackGammon
             {
                 paddx += 5;
                 if (i == 6)
-                    paddx += cellSizeX;
+                    paddx += cellSizeX+5;
                 for (int j = 0; j < mapSizeY; j++)
                 {
                     Button button = CheckingChip(i, j);//new Button();
@@ -58,16 +58,21 @@ namespace BackGammon
                     this.Controls.Add(button);
                 }
             }
-            RandomButton randomBtn = new RandomButton(gameEvents);
-            randomBtn.RandLabel1 = new Label();
-            randomBtn.RandLabel2 = new Label();
-            randomBtn.RandLabel1.Location = new Point(302, 290);
-            randomBtn.RandLabel2.Location = new Point(302, 240);
-            randomBtn.RandLabel1.Size = new Size(cellSizeX * 2, cellSizeY * 2);
-            randomBtn.RandLabel2.Size = new Size(cellSizeX * 2, cellSizeY * 2);
+            RandomButton randomBtn = new RandomButton(gameEvents, cellSizeX, cellSizeY);
             gameEvents.RandBtn = randomBtn;
             this.Controls.Add(randomBtn.RandLabel1);
             this.Controls.Add(randomBtn.RandLabel2);
+
+            Button EdgeOfOwner1 = new Button();
+            Button EdgeOfOwner2 = new Button();
+            EdgeOfOwner1.Name = "EdgeWhite";
+            EdgeOfOwner2.Name = "EdgeBlack";
+            EdgeOfOwner1.Location = new Point(5, paddy);
+            EdgeOfOwner2.Location = new Point(cellSizeX*12 + paddx + 5, cellSizeY * 14 + paddy);
+            EdgeOfOwner1.Size = new Size(cellSizeX + 5, cellSizeY * 10);
+            EdgeOfOwner2.Size = new Size(cellSizeX + 5, cellSizeY * 10);
+            this.Controls.Add(EdgeOfOwner1);
+            this.Controls.Add(EdgeOfOwner2);
         }
         private Button CheckingChip(int i, int j)
         {

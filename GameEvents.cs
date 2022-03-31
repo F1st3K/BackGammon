@@ -18,6 +18,10 @@ namespace BackGammon
         public RandomButton RandBtn;
         private bool IsMoving = false;
         private int coff = 1;
+        private bool HouseOpenWhite = false;
+        private bool HouseOpenBlack = false;
+        private bool HouseFullWhite = false;
+        private bool HouseFullBlack = false;
         public int CurrentPlayer { get; private set; } = 2;
         public GameEvents()
         {
@@ -29,11 +33,16 @@ namespace BackGammon
             {
                 Chip pressedButton = sender as Chip;
                 ShowButton(pressedButton);
+                CheckGameStatus();
                 if (NumDice1 == 0 && NumDice2 == 0)
                 {
                     CurrentPlayer = SwitchPlayer(CurrentPlayer);
                 }
                 pressedButton.Field = Field;
+                if (CurrentPlayer == 2)
+                    pressedButton.HouseFull = HouseFullBlack;
+                else
+                    pressedButton.HouseFull = HouseFullWhite;
                 bool MayStep1 = pressedButton.MayBeSteps(map, NumDice1, CurrentPlayer);
                 bool MayStep2 = pressedButton.MayBeSteps(map, NumDice2, CurrentPlayer);
                 IsMoving = MayStep1 || MayStep2;
@@ -48,6 +57,69 @@ namespace BackGammon
                 sender = prevButton;
                 this.OnPressButton(sender, e);
             }
+        }
+        private void CheckGameStatus()
+        {
+            bool HouseOpen = CurrentPlayer == 2 ? HouseOpenBlack : HouseOpenWhite;
+            int quantity = InHousePlayer();
+            if (!HouseOpen && quantity != 0)
+            {
+                HouseOpen = true;
+                if (CurrentPlayer == 2)
+                    HouseOpenBlack = HouseOpen;
+                else
+                    HouseOpenWhite = HouseOpen;
+            }
+            bool HouseFull = CurrentPlayer == 2 ? HouseFullBlack : HouseFullWhite;
+            if (!HouseFull && quantity == 15)
+            {
+                HouseFull = true;
+                if (CurrentPlayer == 2)
+                    HouseFullBlack = HouseFull;
+                else
+                    HouseFullWhite = HouseFull;
+            }
+        }
+        private int InHousePlayer()
+        {
+            int quantity = 0;
+            int[,] cells = { { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 }, { 0, 0 } };
+            if (CurrentPlayer == 2)
+            {
+                int j = 0;
+                int i = 0;
+                for (int n = 0; n < 6; n++)
+                {
+                    cells[n, 0] = i;
+                    cells[n, 1] = j;
+                    i++;
+                }
+            }
+            else
+            {
+                int j = 23;
+                int i = 6;
+                for (int n = 0; n < 6; n++)
+                {
+                    cells[n, 0] = i;
+                    cells[n, 1] = j;
+                    i++;
+                }
+            }
+
+            for (int i = 0; i < 6; i++)
+            {
+                int n = 0;
+                while (map[cells[i, 0], cells[i, 1] + n] == CurrentPlayer)
+                {
+                    quantity++;
+                    if (CurrentPlayer == 2)
+                        n++;
+                    else
+                        n--;
+                }
+            }
+            return quantity;
         }
         private void ScoreStep(Button pressedButton, Chip prevButton)
         {

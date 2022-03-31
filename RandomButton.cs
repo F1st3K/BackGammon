@@ -10,9 +10,15 @@ namespace BackGammon
 {
     internal class RandomButton
     {
-        public RandomButton(GameEvents Event)
+        public RandomButton(GameEvents Event, int cellSizeX, int cellSizeY)
         {
             this.Event = Event;
+            this.RandLabel1 = new Label();
+            this.RandLabel2 = new Label();
+            this.RandLabel1.Location = new Point(357, 340);
+            this.RandLabel2.Location = new Point(357, 290);
+            this.RandLabel1.Size = new Size(cellSizeX + 5, cellSizeY * 2 - 4);
+            this.RandLabel2.Size = new Size(cellSizeX + 5, cellSizeY * 2);
         }
         private GameEvents Event;
         private Random rnd = new Random();
