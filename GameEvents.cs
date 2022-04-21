@@ -53,10 +53,25 @@ namespace BackGammon
             {
                 Button pressedButton = sender as Button;
                 ScoreStep(pressedButton, prevButton);
-                Move(pressedButton, prevButton);
-                sender = prevButton;
-                this.OnPressButton(sender, e);
+                if (pressedButton.Name == "EdgeWhite" || pressedButton.Name == "EdgeBlack")
+                {
+                    DropChip(pressedButton, prevButton);
+                    this.OnPressButton(prevButton, e);
+                }
+                else
+                {
+                    Move(pressedButton, prevButton);
+                    sender = prevButton;
+                    this.OnPressButton(sender, e);
+                }
+                
             }
+        }
+        private void DropChip(Button pressedButton, Chip prevButton)
+        {
+            Field.map[prevButton.CordArrayI, prevButton.CordArrayJ] = 0;
+            Button button = Field.NewButton(prevButton);
+
         }
         private void CheckGameStatus()
         {
@@ -168,6 +183,7 @@ namespace BackGammon
         private void ShowButton(Chip pressedButton)
         {
             ClearView();
+            AllButtonDisable();
             pressedButton.BackColor = Color.Gray;
             
         }
@@ -180,6 +196,21 @@ namespace BackGammon
                     (Field.Controls[i + ":" + j] as Button).BackColor = Color.White;
                 }
             }
+            (Field.Controls["EdgeWhite"] as Button).BackColor = Color.White;
+            (Field.Controls["EdgeBlack"] as Button).BackColor = Color.White;
+        }
+        private void AllButtonDisable()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                for (int j = 0; j < 24; j++)
+                {
+                    if (Field.map[i,j] == 0)
+                        (Field.Controls[i + ":" + j] as Button).Enabled = false;
+                }
+            }
+            (Field.Controls["EdgeWhite"] as Button).Enabled = false;
+            (Field.Controls["EdgeBlack"] as Button).Enabled = false;
         }
         public int SwitchPlayer(int player)
         {

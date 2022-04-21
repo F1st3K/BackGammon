@@ -27,7 +27,7 @@ namespace BackGammon
         public void ClickOn()
         {
             this.Event.NumDice1 = rnd.Next(1, 7);
-            this.Event.NumDice2 = this.Event.NumDice1;//rnd.Next(1, 7);
+            this.Event.NumDice2 = rnd.Next(1, 7);
             ViewBackImage();
         }
         private void ViewBackImage()

@@ -60,7 +60,7 @@ namespace BackGammon
                 return;
             if (HouseFull)
                 DropNextFlat(map, NumDice);
-                return;
+            return;
         }
         private bool StayFlat(int[,] map, int NumDice)
         {
@@ -79,7 +79,7 @@ namespace BackGammon
             {
                 if (map[Math.Abs(i + NumDice), j] == Owner || map[Math.Abs(i + NumDice), j] == 0)
                 {
-                    ShowButton(Math.Abs(i + NumDice), j, NumDice, map);
+                    ShowButton(Math.Abs(i + NumDice), j, map);
                     NumSteps++;
                 }
                 return true;
@@ -104,7 +104,7 @@ namespace BackGammon
             {
                 if (map[11 - Math.Abs((i + NumDice - 12)), j] == Owner || map[11 - Math.Abs((i + NumDice - 12)), j] == 0)
                 {
-                    ShowButton(11 - Math.Abs((i + NumDice - 12)), j, NumDice, map);
+                    ShowButton(11 - Math.Abs((i + NumDice - 12)), j, map);
                     NumSteps++;
                 }
                 return true;
@@ -129,7 +129,7 @@ namespace BackGammon
             {
                 if (map[Math.Abs(i - NumDice), j] == Owner || map[Math.Abs(i - NumDice), j] == 0)
                 {
-                    ShowButton(Math.Abs(i - NumDice), j, NumDice, map);
+                    ShowButton(Math.Abs(i - NumDice), j, map);
                     NumSteps++;
                 }
                 return true;
@@ -138,14 +138,22 @@ namespace BackGammon
         }
         private void DropNextFlat(int[,] map, int NumDice)
         {
-            
+            string NameEdge = Owner == 2 ? "EdgeWhite" : "EdgeBlack";
+            ShowButton(NameEdge);
+            NumSteps++;
         }
-        private void ShowButton(int i, int j, int NumDice, int [,] map)
+        private void ShowButton(int i, int j, int [,] map)
         {
             (i, j) = CheckForChips(i, j, map);
             (Field.Controls[i + ":" + j] as Button).BackColor = Color.Yellow;
             (Field.Controls[i + ":" + j] as Button).Enabled = true;
-            AddStepPossible((Field.Controls[i + ":" + j] as Button), NumDice);
+            AddStepPossible((Field.Controls[i + ":" + j] as Button));
+        }
+        private void ShowButton(string NameButton)
+        {
+            (Field.Controls[NameButton] as Button).BackColor = Color.Yellow;
+            (Field.Controls[NameButton] as Button).Enabled = true;
+            AddStepPossible((Field.Controls[NameButton] as Button));
         }
         private (int, int) CheckForChips(int i, int j, int [,] map)
         {
@@ -168,7 +176,7 @@ namespace BackGammon
             }
             return (i, j);
         }
-        private void AddStepPossible(Button PosBtn, int NumDice)
+        private void AddStepPossible(Button PosBtn)
         {
             if (PossibleStep1 == null)
             {

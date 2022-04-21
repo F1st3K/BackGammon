@@ -11,6 +11,7 @@ namespace BackGammon
 {
     partial class MainField:Form
     {
+        GameEvents gameEvents;
         private const int mapSizeX = 12;
         private const int mapSizeY = 24;
         private const int cellSizeX = 45;
@@ -24,10 +25,10 @@ namespace BackGammon
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0} };
         private int paddx = 55;
         private int paddy = 45;
         private Image whiteFigure = new Bitmap(new Bitmap(@"..\image\w.png"), new Size(cellSizeX - 1, cellSizeY - 1));
@@ -41,6 +42,7 @@ namespace BackGammon
         }
         private void DrawMap(GameEvents gameEvents)
         {
+            this.gameEvents = gameEvents;
             for (int i = 0; i < mapSizeX; i++)
             {
                 paddx += 5;
@@ -71,8 +73,22 @@ namespace BackGammon
             EdgeOfOwner2.Location = new Point(cellSizeX*12 + paddx + 5, cellSizeY * 14 + paddy);
             EdgeOfOwner1.Size = new Size(cellSizeX + 5, cellSizeY * 10);
             EdgeOfOwner2.Size = new Size(cellSizeX + 5, cellSizeY * 10);
+            EdgeOfOwner1.Click += new EventHandler(gameEvents.OnPressButton);
+            EdgeOfOwner2.Click += new EventHandler(gameEvents.OnPressButton);
             this.Controls.Add(EdgeOfOwner1);
             this.Controls.Add(EdgeOfOwner2);
+        }
+        public Button NewButton(Button prevButton)
+        {
+            Button button = new Button();
+            button.Location = prevButton.Location;
+            button.Size = prevButton.Size;
+            button.BackColor = Color.White;
+            button.Name = prevButton.Name;
+            button.Click += new EventHandler(gameEvents.OnPressButton);
+            this.Controls.Add(button);
+            this.Controls.Remove(this.Controls[prevButton.Name] as Button);
+            return button;
         }
         private Button CheckingChip(int i, int j)
         {
@@ -94,18 +110,5 @@ namespace BackGammon
                 return button.BackgroundImage = blackFigure;
             return null;
         }
-
-        /*private void InitializeComponent()
-        {
-            this.SuspendLayout();
-            // 
-            // MainField
-            // 
-            this.ClientSize = new System.Drawing.Size(825, 562);
-            this.Name = "MainField";
-            this.Text = "BackGammon";
-            this.ResumeLayout(false);
-
-        }*/
     }
 }
